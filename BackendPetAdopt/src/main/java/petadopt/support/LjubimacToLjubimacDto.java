@@ -24,6 +24,7 @@ public class LjubimacToLjubimacDto implements Converter<Ljubimac, LjubimacDTO>{
 		dto.setOpis(lj.getOpis());
 		dto.setKategorijaId(lj.getKategorija().getId());
 		dto.setKategorijaNaziv(lj.getKategorija().getNaziv());
+		dto.setUdomljen(lj.isUdomljen());
 		return dto;
 	}
 	

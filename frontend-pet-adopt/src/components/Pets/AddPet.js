@@ -9,11 +9,12 @@ const Add = () => {
     const emptyPet = {
         ime: "",
         starost: "",
-        vakcinisan: false,
         pol: "",
         tezina: "",
+        vakcinisan: false,
         opis: "",
-        kategorijaId: -1
+        kategorijaId: -1,
+        udomljen: false
     }
 
     const [pet, setPet] = useState(emptyPet)
@@ -41,14 +42,12 @@ const Add = () => {
     }
 
     const doAdd = () => {
-        PetAdoptAxios.post("/ljubimci/" + pet)
-        .then((res) => {
-            console.log(res)
+        PetAdoptAxios.post("/ljubimci/", pet)
+        .then(() => {
             setPet(pet)
             navigate("/pets")
         })
-        .catch((error) => {
-            console.log(error)
+        .catch(() => {
             alert("Nije uspelo dodavanje ljubimca!")
         })
     }
@@ -57,7 +56,7 @@ const Add = () => {
         return pet.ime != "" &&
                 (pet.starost != "" && pet.starost >= 0 && pet.starost <= 9999 && pet.starost % 1 == 0) &&
                 pet.pol != "" &&
-                (pet.tezina != "" && pet.tezina >= 0 && pet.tezina <= 9999 && pet.tezina % 1 == 0) &&
+                pet.tezina > 0 &&
                 pet.opis != "" &&
                 pet.kategorijaId != -1
     }

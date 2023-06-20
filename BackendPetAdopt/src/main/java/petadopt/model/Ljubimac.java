@@ -2,6 +2,7 @@ package petadopt.model;
 
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -30,6 +31,8 @@ public class Ljubimac {
 	@Column(nullable = false)
 	private Boolean vakcinisan;
 	
+	private Boolean udomljen;
+	
 	@Column(nullable = false)
 	private String pol;
 	
@@ -43,25 +46,11 @@ public class Ljubimac {
 	@JoinColumn(nullable = false)
 	private Kategorija kategorija;
 	
-	@OneToOne(mappedBy = "ljubimac")
+	@OneToOne(cascade = CascadeType.ALL)
 	private Udomljavanje udomljavanje;
 
 	public Ljubimac() {
 		super();
-	}
-
-	public Ljubimac(Long id, String ime, Integer starost, Boolean vakcinisan, String pol, Double tezina, String opis,
-			Kategorija kategorija, Udomljavanje udomljavanje) {
-		super();
-		this.id = id;
-		this.ime = ime;
-		this.starost = starost;
-		this.vakcinisan = vakcinisan;
-		this.pol = pol;
-		this.tezina = tezina;
-		this.opis = opis;
-		this.kategorija = kategorija;
-		this.udomljavanje = udomljavanje;
 	}
 
 	public Long getId() {
@@ -70,6 +59,14 @@ public class Ljubimac {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public boolean isUdomljen() {
+		return udomljen;
+	}
+
+	public void setUdomljen(boolean udomljen) {
+		this.udomljen = udomljen;
 	}
 
 	public String getIme() {
@@ -167,8 +164,7 @@ public class Ljubimac {
 	@Override
 	public String toString() {
 		return "Ljubimac [id=" + id + ", ime=" + ime + ", starost=" + starost + ", vakcinisan=" + vakcinisan + ", pol="
-				+ pol + ", tezina=" + tezina + ", opis=" + opis + ", kategorija=" + kategorija.getNaziv() + ", udomljavanje="
-				+ udomljavanje + "]";
+				+ pol + ", tezina=" + tezina + ", opis=" + opis + ", kategorija=" + kategorija.getNaziv() + "]";
 	}
 
 	

@@ -24,7 +24,6 @@ public class Udomljavanje {
 	private LocalDateTime datumUdomljavanjaLjubimca;
 	
 	@OneToOne
-	@JoinColumn
 	private Ljubimac ljubimac;
 	
 	public Udomljavanje() {

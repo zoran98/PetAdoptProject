@@ -1,14 +1,25 @@
 package petadopt.web.dto;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
 public class LjubimacDTO {
 	
 	private Long id;
+	
+	@NotBlank
 	private String ime;
 	private Integer starost;
 	private Boolean vakcinisan;
 	private String pol;
+	
+	@Positive
+	@NotNull
 	private Double tezina;
 	private String opis;
+	
+	private Boolean udomljen;
 	
 	private Long kategorijaId;
 	private String kategorijaNaziv;
@@ -23,6 +34,14 @@ public class LjubimacDTO {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Boolean isUdomljen() {
+		return udomljen;
+	}
+
+	public void setUdomljen(Boolean udomljen) {
+		this.udomljen = udomljen;
 	}
 
 	public String getIme() {

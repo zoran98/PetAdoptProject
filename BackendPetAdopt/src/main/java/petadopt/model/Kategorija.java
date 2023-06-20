@@ -95,7 +95,7 @@ public class Kategorija {
 
 	@Override
 	public String toString() {
-		return "Kategorija [id=" + id + ", naziv=" + naziv + ", ljubimci=" + ljubimci + "]";
+		return "Kategorija [id=" + id + ", naziv=" + naziv + "]";
 	}
 	
 	
