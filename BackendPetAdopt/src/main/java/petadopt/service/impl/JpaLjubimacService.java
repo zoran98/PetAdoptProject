@@ -48,4 +48,12 @@ public class JpaLjubimacService implements LjubimacService{
 		return null;
 	}
 
+	@Override
+	public Page<Ljubimac> search(Long kategorijaId, String pol, String opis, int pageNo) {
+		if(pol != null) {
+			pol = "%" + pol + "%";
+		}
+		return ljubimacRepository.search(kategorijaId, pol, opis, PageRequest.of(pageNo, 2));
+	}
+
 }

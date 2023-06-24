@@ -11,5 +11,6 @@ public interface LjubimacService {
 	Ljubimac save(Ljubimac ljubimac);
 	Ljubimac update(Ljubimac ljubimac);
 	Ljubimac delete(Long id);
+	Page<Ljubimac> search(Long kategorijaId, String pol, String opis, int pageNo);
 
 }

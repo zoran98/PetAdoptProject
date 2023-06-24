@@ -1,17 +1,21 @@
 import { useEffect, useState } from "react";
-import { Button, ButtonGroup, Table } from "react-bootstrap";
+import { Button, ButtonGroup, Collapse, Form, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import PetAdoptAxios from "../../apis/PetAdoptAxios";
 
 
 const Pets = () => {
     const[pets, setPets] = useState([]);
+    const[categories, setCategories] = useState([]);
+    const [search, setSearch] = useState({ kategorijaId: -1, pol: "" , opis: "" })
+    const [showSearch, setShowSearch] = useState(false)
     const[totalPages, setTotalPages] = useState(0)
     const[pageNo, setPageNo] = useState(0)
     const navigate = useNavigate()
 
 
     useEffect(() => {
+        getCategories();
         getPets(0);
     }, [])
 
@@ -21,6 +25,19 @@ const Pets = () => {
             params: {
                 pageNo: newPageNo
             }
+        }
+
+         //   Sledeca 2 if-a su tu zbog search - a
+         if (search.kategorijaId != -1) {
+            conf.params.kategorijaId = search.kategorijaId;
+        }
+
+        if (search.pol != "") {
+            conf.params.pol = search.pol;
+        }
+
+        if (search.opis != "") {
+            conf.params.opis = search.opis;
         }
 
         PetAdoptAxios.get("/ljubimci", conf)
@@ -34,6 +51,30 @@ const Pets = () => {
                 console.log(error)
                 alert("Doslo je do greske prilikom ispisivanja ljubimaca!")
             })
+    }
+
+    const getCategories = () => {
+        PetAdoptAxios.get("/kategorije")
+        .then((result) => {
+            setCategories(result.data)
+        })
+        .catch(() => {
+            alert("Nije uspelo dobavljanje.");
+        })
+    }
+
+    const searchValueInputChange = (e) => {
+        let newSearch = { ...search }
+
+        const name = e.target.name;
+        const value = e.target.value;
+
+        newSearch[name] = value
+        setSearch(newSearch);
+    }
+
+    const doSearch = () => {
+        getPets(0);
     }
 
     const doDelete = (petId) => {
@@ -73,6 +114,55 @@ const Pets = () => {
     return (
         <div>
             <h1>Ljubimci</h1>
+
+            {/*Deo za Search*/}
+             <Form.Group style={{ marginTop: 35 }}>
+                <Form.Check type="checkbox" label="Show search form" onClick={(e) => setShowSearch(e.target.checked)} />
+            </Form.Group> 
+            <Collapse in={showSearch}>
+            <Form style={{ marginTop: 10 }}>
+                    <Form.Group>
+                        <Form.Label>Kategorija</Form.Label>
+                        <Form.Control
+                            onChange={(e) => searchValueInputChange(e)}
+                            name="kategorijaId"
+                            value={search.kategorijaId}
+                            as="select"
+                        >
+                            <option value={-1}>Odaberi kategoriju</option>
+                            {categories.map((cat) => {
+                                return (
+                                    <option value={cat.id} key={cat.id}>
+                                        {cat.naziv}
+                                    </option>
+                                );
+                            })}
+                        </Form.Control>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Pol</Form.Label>
+                        <Form.Control
+                            value={search.pol}
+                            name="pol"
+                            as="input"
+                            onChange={(e) => searchValueInputChange(e)}>
+                                
+                        </Form.Control>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Opis</Form.Label>
+                        <Form.Control
+                            value={search.opis}
+                            name="opis"
+                            as="input"
+                            onChange={(e) => searchValueInputChange(e)}>
+                                
+                        </Form.Control>
+                    </Form.Group>
+                    <Button onClick={() => doSearch()}>Pretraga</Button>
+                </Form>
+                </Collapse>
+
             <ButtonGroup style={{marginTop: 25, float: "left"}}>
                 <Button
                 style={{margin: 3, width: 150}} onClick={() => goToAdd()}>

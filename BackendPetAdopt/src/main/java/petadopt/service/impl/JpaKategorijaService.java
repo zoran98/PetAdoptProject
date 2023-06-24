@@ -29,7 +29,7 @@ public class JpaKategorijaService implements KategorijaService{
 
 	@Override
 	public Page<Kategorija> findAll(int pageNo) {
-		return kategorijaRepository.findAll(PageRequest.of(pageNo, 2));
+		return kategorijaRepository.findAll(PageRequest.of(pageNo, 10));
 	}
 
 	@Override

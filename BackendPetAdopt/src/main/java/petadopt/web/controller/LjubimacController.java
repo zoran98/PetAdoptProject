@@ -44,17 +44,19 @@ public class LjubimacController {
 	
 	//@PreAuthorize("hasRole('ROLE_KORISNIK', 'ROLE_ADMIN')")
 		@GetMapping
-	    public ResponseEntity<List<LjubimacDTO>> getAll(
+	    public ResponseEntity<List<LjubimacDTO>> getAll(@RequestParam(value = "kategorijaId", required = false) Long kategorijaId,
+				@RequestParam(value = "pol", required = false) String pol,
+				@RequestParam(value = "opis", required = false) String opis,
 	    		@RequestParam(value = "pageNo", defaultValue = "0") int pageNo){
 			
 
-			Page<Ljubimac> page = ljubimacService.findAll(pageNo);
-//				Page<Ljubimac> page = null;
-//	        if(kategorijaId != null || polLjubimca != null || opisLjubimca != null) {
-//	        	page = ljubimacService.search(kategorijaId, polLjubimca, opisLjubimca, pageNo);
-//	        } else {
-//	        	page = ljubimacService.findAll(pageNo);
-//	        }
+	//		Page<Ljubimac> page = ljubimacService.findAll(pageNo);
+				Page<Ljubimac> page = null;
+	        if(kategorijaId != null || pol != null || opis != null) {
+	        	page = ljubimacService.search(kategorijaId, pol, opis, pageNo);
+	        } else {
+	        	page = ljubimacService.findAll(pageNo);
+	        }
 
 	        HttpHeaders headers = new HttpHeaders();
 	        headers.add("Total-Pages", Integer.toString(page.getTotalPages()));
