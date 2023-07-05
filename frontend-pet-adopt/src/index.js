@@ -15,6 +15,7 @@ import Category from "./components/Category/Category";
 import AddCategory from "./components/Category/AddCategory";
 import Pets from "./components/Pets/Pets";
 import AddPet from "./components/Pets/AddPet";
+import EditPet from "./components/Pets/EditPet";
 
 const App = () => {
     return (
@@ -49,6 +50,7 @@ const App = () => {
               <Route path="/category/add" element={<AddCategory/>}/>
               <Route path="/pets" element={<Pets/>}/>
               <Route path="/pets/add" element={<AddPet/>}/>
+              <Route path="/pets/edit/:id" element={<EditPet/>}/>
               <Route path="*" element={<NotFound/>} />
             </Routes>
           </Container>

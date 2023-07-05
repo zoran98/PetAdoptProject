@@ -99,6 +99,10 @@ const Pets = () => {
         navigate("/pets/add")
     }
 
+    const goToEdit = (petId) => {
+        navigate("/pets/edit/" + petId);
+    }
+
     const doVakcinisan = (param) => {
         if(param == true){
             return "Vakcinisan";
@@ -213,6 +217,13 @@ const Pets = () => {
                                             onClick={() => doDelete(pet.id)}
                                             style={{marginLeft: 5}}>
                                         Delete
+                                        </Button>, 
+                                    
+                                        <Button
+                                            variant="warning"
+                                            onClick={() => goToEdit(pet.id)}
+                                            style={{marginLeft: 5}}>
+                                        Edit
                                         </Button>] : null}
                                 </td>
                             </tr>

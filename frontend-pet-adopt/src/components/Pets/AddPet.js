@@ -124,6 +124,8 @@ const Add = () => {
                         name="opis"
                         value={pet.opis}
                         as="input"
+                        // id="exampleFormControlTextarea1"
+                        // rows="3"
                     ></Form.Control>
                 </Form.Group>
                 <Form.Group>
