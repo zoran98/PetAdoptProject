@@ -25,7 +25,8 @@ const EditPet = () => {
         .then((res) => {
             setPet(res.data)
         })
-        .catch(() => {
+        .catch((error) => {
+            console.log(error)
             alert("Nije uspelo dodavanje ljubimca!")
         })
     }
@@ -35,7 +36,8 @@ const EditPet = () => {
         .then((res) => {
             setCategories(res.data)
         })
-        .catch(() => {
+        .catch((error) => {
+            console.log(error)
             alert("Nije uspelo dodavanje!")
         })
     }
@@ -45,7 +47,8 @@ const EditPet = () => {
         .then((res) => {
             navigate("/pets");
         })
-        .catch(() => {
+        .catch((error) => {
+            console.log(error)
             alert("Nije uspela izmena!")
         })
     }
