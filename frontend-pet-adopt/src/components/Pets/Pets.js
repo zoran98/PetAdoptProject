@@ -27,7 +27,7 @@ const Pets = () => {
             }
         }
 
-         //   Sledeca 2 if-a su tu zbog search - a
+         //   Sledeca 3 if-a su tu zbog search - a
          if (search.kategorijaId != -1) {
             conf.params.kategorijaId = search.kategorijaId;
         }
